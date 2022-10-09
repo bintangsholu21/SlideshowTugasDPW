@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Javascript</title>
+    <style>
+        #slideshow-container{
+            margin: 10px auto;
+            width: 800px;
+            height: 400px;
+            border: 5px solid white;
+            box-shadow: 0px 0px 10px black;
+        }
+        nav{
+            width: 800px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .judul{
+            text-align: center;
+            font-size: 13pt;
+            font-family: montserrat;
+            color: #334257;
+        }
+</style>
+</head>
+<body>
+    <div class="judul">
+        <h1>ALBUM FOTO LDK 2C TI</h1>
+    </div>
+    <div id="slideshow-container">
+        <a id="linkshow" href="https://wwww.google.com">
+            <img id="slideshow" width="800" height="400" src="gambar0.jpeg" alt="">
+        </a>
+    </div>
+    <nav>
+        <button id="prev"> << Prev</button>
+        <div>
+            <button id="start">Start slideshow</button>
+            <button id="stop">Stop slideshow</button>
+        </div>
+        <button id="next">Next >></button>
+    </nav>
+    
+    <script>
+        let slideshowNode = document.getElementById("slideshow");
+        let linkshowNode = document.getElementById("linkshow");
+        let startNode = document.getElementById("start");
+        let stopNode = document.getElementById("stop");
+        let prevNode = document.getElementById("prev");
+        let nextNode = document.getElementById("next");
+
+        let arrayGambar = [
+            "gambar0.jpeg", "gambar1.jpeg", "gambar2.jpeg", "gambar3.jpeg", "gambar4.jpeg"
+        ];
+        let arrayLink = [
+            "https://www.google.com",
+            "https://www.twitter.com",
+            "https://www.facebook.com",
+            "https://www.bing.com",
+            "https://www.duniailkom.com"
+        ];
+
+        let counter = 0;
+
+        const nextSlideshow = () =>{
+            counter++;
+            if(counter === 5){
+                counter = 0;
+            }
+            slideshowNode.setAttribute("src", arrayGambar[counter]);
+            linkshowNode.setAttribute("href", arrayLink[counter]);
+        }
+
+        const prevSlideshow = () =>{
+            counter--;
+            if(counter === -1){
+                counter = 4;
+            } 
+            slideshowNode.setAttribute("src", arrayGambar[counter]);
+            linkshowNode.setAttribute("href", arrayLink[counter]);
+        }
+
+        prevNode.addEventListener("click", prevSlideshow);
+        nextNode.addEventListener("click", nextSlideshow);
+
+        let intervalID = 0;
+
+        const startSlideshow = () =>{
+            if(intervalID === 0){
+                intervalID = setInterval(nextSlideshow, 2000);
+            }
+        }
+
+        const stopSlideshow = () =>{
+            clearInterval(intervalID);
+            intervalID = 0;
+        }
+
+        prevNode.addEventListener("click", prevSlideshow);
+        nextNode.addEventListener("click", nextSlideshow);
+        startNode.addEventListener("click", startSlideshow);
+        stopNode.addEventListener("click", stopSlideshow);
+    </script>
+</body>
+</html>
